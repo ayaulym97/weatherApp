@@ -5,11 +5,13 @@ import {FONT_SIZE, scale} from '@/config/theme/sizes';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: '5%',
     backgroundColor: COLORS.black,
   },
+  content: {
+    paddingHorizontal: '5%',
+  },
   headerTitle: {
-    marginTop: 32,
+    marginTop: scale(32),
     fontSize: scale(FONT_SIZE['4xl']),
     color: COLORS.white,
   },

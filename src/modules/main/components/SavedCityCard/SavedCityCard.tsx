@@ -16,7 +16,7 @@ const SavedCityCard: React.FC<Props> = ({data, onPress}) => {
         <Text style={styles.description}>{data.weather[0].description}</Text>
       </View>
       <View>
-        <Text style={styles.temperature}>{data.main.temp}°</Text>
+        <Text style={styles.temperature}>{Math.round(data.main.temp)}°</Text>
         <Image
           source={{
             uri: `https://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`,

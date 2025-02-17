@@ -23,12 +23,8 @@ export const weatherSlice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    setCity(state, {payload}: PayloadAction<{message: string}>) {
-      state.selectedCity = payload;
-    },
     addToSavedCities(state, {payload}: PayloadAction<SelectedCityItem>) {
       const index = state.savedCities.findIndex(city => city.id === payload.id);
-      console.log('SAVED', index);
       if (index === -1) {
         state.savedCities.push(payload);
       } else {

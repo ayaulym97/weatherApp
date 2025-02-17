@@ -13,7 +13,7 @@ interface Props {
   onSearch: (value: string) => void;
 }
 
-const SearchInput: React.FC<Props> = ({value, onChange,onSearch, onClean}) => {
+const SearchInput: React.FC<Props> = ({value, onChange, onSearch, onClean}) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -21,6 +21,7 @@ const SearchInput: React.FC<Props> = ({value, onChange,onSearch, onClean}) => {
           style={styles.input}
           value={value}
           placeholder="Поиск"
+          autoFocus
           placeholderTextColor={COLORS.gray[400]}
           onChangeText={search => onChange(search)}
         />

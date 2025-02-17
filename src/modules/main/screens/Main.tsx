@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
 import {styles} from './styles';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -11,20 +11,41 @@ import {COLORS} from '@/config/theme/colors';
 import EmptyCard from '../components/EmptyCard';
 import {useSelector} from 'react-redux';
 import SavedCityCard from '../components/SavedCityCard';
+import {SelectedCityItem} from '@/store/weatherSlice';
 
 const MainScreen = ({navigation}: NativeStackScreenProps<StackParams>) => {
-  const {search, loading, cities, onChangeSearch, onSearch, onClean} =
-    useSearch();
+  const {
+    search,
+    loading,
+    cities,
+    hasSearched,
+    onChangeSearch,
+    onSearch,
+    onClean,
+  } = useSearch();
   const {savedCities} = useSelector(state => state.weather);
 
-  const goToWeatherPage = item => {
-    console.log('goToWeatherPage', item);
+  const goToWeatherPage = (item: SelectedCityItem) => {
     navigation.navigate('weather.index', {data: item});
   };
 
+  const renderListHeader = useMemo(() => {
+    if (search.length === 0 && savedCities.length > 0) {
+      return <Text style={styles.saved}>Сохраненное</Text>;
+    }
+    return null;
+  }, [search, savedCities.length]);
+
+  const renderListEmpty = useMemo(() => {
+    if (!loading && hasSearched && cities.length === 0) {
+      return <EmptyCard name={search} />;
+    }
+    return null;
+  }, [loading, hasSearched, cities.length, search]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
+      <View style={styles.content}>
         <Text style={styles.headerTitle}>Погода</Text>
         <SearchInput
           value={search}
@@ -36,11 +57,7 @@ const MainScreen = ({navigation}: NativeStackScreenProps<StackParams>) => {
           <ActivityIndicator color={COLORS.gray[400]} style={styles.loader} />
         ) : (
           <FlatList
-            ListHeaderComponent={() =>
-              search.length === 0 && savedCities.length ? (
-                <Text style={styles.saved}>Сохраненное</Text>
-              ) : null
-            }
+            ListHeaderComponent={renderListHeader}
             data={
               search.length === 0 && savedCities.length >= 1
                 ? savedCities
@@ -54,12 +71,12 @@ const MainScreen = ({navigation}: NativeStackScreenProps<StackParams>) => {
                 />
               ) : (
                 <CityItem
-                  name={item.name}
+                  name={`${item.name}, ${item.country}`}
                   onPress={() => goToWeatherPage(item)}
                 />
               )
             }
-            ListEmptyComponent={!loading && <EmptyCard name={search} />}
+            ListEmptyComponent={renderListEmpty}
           />
         )}
       </View>
