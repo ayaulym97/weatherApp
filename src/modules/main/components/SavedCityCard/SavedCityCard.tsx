@@ -4,8 +4,9 @@ import {styles} from './styles.ts';
 import {SelectedCityItem} from '@/store/weatherSlice.ts';
 
 interface Props {
+  disabled?: boolean;
   data: SelectedCityItem;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 const SavedCityCard: React.FC<Props> = ({data, onPress}) => {

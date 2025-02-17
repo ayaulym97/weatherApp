@@ -1,6 +1,7 @@
 import {fetchCities} from '@/api/weather.api';
 import {SelectedCityItem} from '@/store/weatherSlice';
 import {useState} from 'react';
+import {Alert} from 'react-native';
 
 export const useSearch = () => {
   const [search, setSearch] = useState<string>('');
@@ -28,7 +29,9 @@ export const useSearch = () => {
       .then(response => {
         setCities(response.data);
       })
-      .catch(error => {})
+      .catch(error => {
+        Alert.alert(error.message);
+      })
       .finally(() => setLoading(false));
   };
 

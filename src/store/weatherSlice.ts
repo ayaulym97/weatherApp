@@ -5,8 +5,12 @@ export type NotificationType = 'error' | 'success';
 export interface SelectedCityItem {
   id: string;
   lat: string;
-  long: string;
+  lon: string;
   name: string;
+  coord?: {
+    lat: string;
+    long: string;
+  };
 }
 
 export interface WeatherProps {

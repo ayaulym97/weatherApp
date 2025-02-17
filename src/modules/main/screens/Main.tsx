@@ -57,6 +57,9 @@ const MainScreen = ({navigation}: NativeStackScreenProps<StackParams>) => {
           <ActivityIndicator color={COLORS.gray[400]} style={styles.loader} />
         ) : (
           <FlatList
+            keyExtractor={(item, index) =>
+              item.id ? item.id.toString() : `${item.name}-${index}`
+            }
             ListHeaderComponent={renderListHeader}
             data={
               search.length === 0 && savedCities.length >= 1

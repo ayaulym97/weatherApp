@@ -9,11 +9,10 @@ export const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    marginHorizontal: '5%',
   },
   headerTitle: {
     marginTop: scale(32),
-    fontSize: scale(FONT_SIZE['5xl']),
+    fontSize: scale(FONT_SIZE['4xl']),
     color: COLORS.white,
     fontWeight: '700',
   },
@@ -29,11 +28,20 @@ export const styles = StyleSheet.create({
   },
   weather: {
     marginLeft: 4,
-    fontSize: scale(FONT_SIZE['xl']),
+    fontSize: scale(FONT_SIZE['md']),
     color: COLORS.white,
   },
   weatherIcon: {
     width: scale(60),
     aspectRatio: 1,
   },
+  forecast: {
+    marginTop: scale(16),
+    fontSize: scale(FONT_SIZE.sm),
+    color: COLORS.gray[100],
+  },
+  list:{
+    width: '90%',
+    marginHorizontal: '5%',
+  }
 });
